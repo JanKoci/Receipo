@@ -10,4 +10,36 @@
     <string name="menu_home">Home</string>
     <string name="menu_expired">Expired</string>
     <string name="menu_stats">Statistics</string>
+    <string-array name="shops_array">
+        <item>Armani</item>
+        <item>Adidas</item>
+        <item>Alza</item>
+        <item>Sportisimo</item>
+        <item>Sparkys</item>
+        <item>Nike</item>
+    </string-array>
+    <string-array name="dates_array">
+        <item>12/10</item>
+        <item>07/10</item>
+        <item>21/09</item>
+        <item>15/09</item>
+        <item>14/08</item>
+        <item>02/08</item>
+    </string-array>
+    <string-array name="items_array">
+        <item>Tshirt, Jeans</item>
+        <item>Shoes</item>
+        <item>Headphones</item>
+        <item>Football, water bottle</item>
+        <item>Teddy bear</item>
+        <item>Shorts</item>
+    </string-array>
+    <string-array name="price_array">
+        <item>1.750 KČ</item>
+        <item>1.200 KČ</item>
+        <item>2.499 KČ</item>
+        <item>600 KČ</item>
+        <item>299 KČ</item>
+        <item>499 KČ</item>
+    </string-array>
 </resources>
