@@ -6,10 +6,18 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="action_next">Next</string>
 
     <string name="menu_home">Home</string>
     <string name="menu_expired">Expired</string>
     <string name="menu_stats">Statistics</string>
+
+    <string name="creation_category">Category</string>
+    <string name="creation_store">Store</string>
+    <string name="creation_items">Items</string>
+    <string name="creation_scan">Scan</string>
+    <string name="creation_overview">OverView</string>
+
     <string-array name="shops_array">
         <item>Hilfinger</item>
         <item>Adidas</item>
@@ -42,4 +50,22 @@
         <item>299 KČ</item>
         <item>499 KČ</item>
     </string-array>
+
+    <string-array name="categories_array">
+        <item>Clothes</item>
+        <item>Electronics</item>
+        <item>Sport</item>
+        <item>Other</item>
+    </string-array>
+
+
+    <string name="title_activity_creation">CreationActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 </resources>
