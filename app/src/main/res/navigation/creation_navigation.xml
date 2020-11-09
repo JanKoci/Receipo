@@ -9,6 +9,16 @@
         android:id="@+id/nav_category"
         android:name="com.example.receipo.ui.creation.CategoryFragment"
         android:label="@string/creation_category"
-        tools:layout="@layout/fragment_category" />
+        tools:layout="@layout/fragment_category" >
+        <action
+            android:id="@+id/category_to_store"
+            app:destination="@id/nav_store" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_store"
+        android:name="com.example.receipo.ui.creation.StoreFragment"
+        android:label="@string/creation_store"
+        tools:layout="@layout/fragment_store" />
 
 </navigation>

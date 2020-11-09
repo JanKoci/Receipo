@@ -22,19 +22,19 @@ class CreationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_creation)
         setSupportActionBar(findViewById(R.id.creation_toolbar))
 
-        supportActionBar?.apply {
-            setDisplayHomeAsUpEnabled(true)
-            setDisplayShowHomeEnabled(true)
-        }
-
         findViewById<ExtendedFloatingActionButton>(R.id.efab_creation).setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
 
-//        val navController = findNavController(R.id.nav_creation_fragment)
-//        appBarConfiguration = AppBarConfiguration(setOf(R.id.nav_category))
-//        setupActionBarWithNavController(navController, appBarConfiguration)
+        val navController = findNavController(R.id.nav_creation_fragment)
+        appBarConfiguration = AppBarConfiguration(navController.graph)
+        setupActionBarWithNavController(navController, appBarConfiguration)
+
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setDisplayShowHomeEnabled(true)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

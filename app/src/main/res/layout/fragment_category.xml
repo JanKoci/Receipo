@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.creation.CategoryFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="100" >
 
     <TextView
         android:layout_width="match_parent"
@@ -19,7 +20,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/category_recycle_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="85"
         tools:listitem="@layout/category_list_item"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
