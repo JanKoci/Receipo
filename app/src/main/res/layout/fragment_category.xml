@@ -15,13 +15,13 @@
         android:padding="5dp"
         android:textSize="16sp"
         android:textColor="@color/colorPrimaryDark"
-        android:background="@color/colorAccent" />
+        android:background="@color/colorGrey" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/category_recycle_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="85"
+        android:layout_weight="90"
         tools:listitem="@layout/category_list_item"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -29,5 +29,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/efab_creation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_gravity="bottom|center"
+        app:backgroundTint="@color/colorPrimary"
+        android:text="Create Category"
+        android:textColor="#ffffff" />
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="5"
+        android:progress="0"
+        android:layout_gravity="bottom" />
 
 </LinearLayout>
