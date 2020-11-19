@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.receipo.R
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
 class CategoryFragment : Fragment() {
 
@@ -35,6 +36,17 @@ class CategoryFragment : Fragment() {
         recyclerView.addItemDecoration(
             DividerItemDecoration(recyclerView.context, DividerItemDecoration.VERTICAL)
         )
+
+        val fabAddNew: ExtendedFloatingActionButton = root.findViewById(R.id.efab_category)
+
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (dy > 0)
+                    fabAddNew.hide()
+                else if (dy < 0)
+                    fabAddNew.show()
+            }
+        })
         return root
     }
 

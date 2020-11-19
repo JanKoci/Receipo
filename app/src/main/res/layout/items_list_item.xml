@@ -33,7 +33,7 @@
             android:id="@+id/editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorPrimary"
+            android:backgroundTint="#602A94D6"
             android:textSize="16sp" />
 
         <LinearLayout
@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"
-                android:backgroundTint="@color/colorPrimary"
+                android:backgroundTint="#602A94D6"
                 android:inputType="numberDecimal" />
             <TextView
                 android:layout_width="wrap_content"

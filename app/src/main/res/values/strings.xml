@@ -27,6 +27,12 @@
         <item>Sportisimo</item>
         <item>Sparkys</item>
         <item>Nike</item>
+        <item>Hilfinger</item>
+        <item>Adidas</item>
+        <item>Alza</item>
+        <item>Sportisimo</item>
+        <item>Sparkys</item>
+        <item>Nike</item>
     </string-array>
     <string-array name="dates_array">
         <item>12/10</item>
@@ -54,6 +60,10 @@
     </string-array>
 
     <string-array name="categories_array">
+        <item>Clothes</item>
+        <item>Electronics</item>
+        <item>Sport</item>
+        <item>Other</item>
         <item>Clothes</item>
         <item>Electronics</item>
         <item>Sport</item>

@@ -1,14 +1,16 @@
 package com.example.receipo.ui.creation
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.receipo.R
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class StoreFragment : Fragment() {
 
@@ -34,6 +36,18 @@ class StoreFragment : Fragment() {
         recyclerView.addItemDecoration(
             DividerItemDecoration(recyclerView.context, DividerItemDecoration.VERTICAL)
         )
+
+        val fabAddNew: ExtendedFloatingActionButton = root.findViewById(R.id.efab_store)
+
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (dy > 0)
+                    fabAddNew.hide()
+                else if (dy < 0)
+                    fabAddNew.show()
+            }
+        })
+
         return root
     }
 }

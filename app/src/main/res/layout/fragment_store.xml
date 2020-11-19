@@ -4,9 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.creation.StoreFragment"
     android:orientation="vertical"
-    android:weightSum="100">
+    tools:context=".ui.creation.StoreFragment" >
 
     <TextView
         android:layout_width="match_parent"
@@ -17,35 +16,38 @@
         android:textColor="@color/colorPrimaryDark"
         android:background="@color/colorGrey" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/store_recycle_view"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="90"
-        tools:listitem="@layout/store_list_item"
-        android:scrollbars="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        android:layout_height="match_parent"
+        android:layout_weight="90" >
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/efab_creation"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/store_recycle_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/store_list_item" />
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/efab_store"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_gravity="bottom|center"
+            app:backgroundTint="@color/colorPrimary"
+            android:text="Create Store"
+            android:textColor="#ffffff" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:layout_gravity="bottom|center"
-        app:backgroundTint="@color/colorPrimary"
-        android:text="Create Store"
-        android:textColor="#ffffff" />
-
-    <SeekBar
-        android:id="@+id/seekBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:max="5"
-        android:progress="1"
-        android:layout_gravity="bottom" />
+        android:background="@drawable/progress_bar_2"
+        android:layout_marginBottom="5dp"
+        android:layout_gravity="center" />
 
 </LinearLayout>
