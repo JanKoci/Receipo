@@ -1,7 +1,10 @@
 package com.example.receipo
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
@@ -13,6 +16,10 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
+
+
+const val DETAIL_EXTRA_MESSAGE = "com.example.receipo.DETAIL_MESSAGE"
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -49,5 +56,16 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    fun goToDetail(view: View) {
+        val shop = view.findViewById<TextView>(R.id.text_shop).text.toString()
+        val date = view.findViewById<TextView>(R.id.text_date).text.toString()
+        val price = view.findViewById<TextView>(R.id.text_price).text.toString()
+
+        val intent = Intent(this, DetailActivity::class.java)
+
+        intent.putExtra(DETAIL_EXTRA_MESSAGE, arrayOf(shop, date, price))
+        startActivity(intent)
     }
 }
