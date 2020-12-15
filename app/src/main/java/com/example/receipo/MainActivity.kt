@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -16,6 +17,10 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
+import com.example.receipo.db.entity.Receipt
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 const val DETAIL_EXTRA_MESSAGE = "com.example.receipo.DETAIL_MESSAGE"
@@ -45,6 +50,21 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_home, R.id.nav_expired, R.id.nav_stats), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        val receiptsViewModel: ReceiptsViewModel = ViewModelProvider(this).get(ReceiptsViewModel::class.java)
+        val receipt = Receipt(
+            1,
+            "123",
+            "321",
+            1,
+            1,
+            "path",
+            "parth",
+            "123"
+        )
+        GlobalScope.launch(Dispatchers.IO) { receiptsViewModel.insert(receipt) }
+        receiptsViewModel.receiptList
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -68,4 +88,9 @@ class MainActivity : AppCompatActivity() {
         intent.putExtra(DETAIL_EXTRA_MESSAGE, arrayOf(shop, date, price))
         startActivity(intent)
     }
+
+    fun getData() {
+
+    }
+
 }

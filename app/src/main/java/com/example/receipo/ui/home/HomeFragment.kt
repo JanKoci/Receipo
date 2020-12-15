@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.receipo.DataSource
 import com.example.receipo.R
 import com.example.receipo.ReceiptListAdapter
+import com.example.receipo.ReceiptsViewModel
 
 class HomeFragment : Fragment() {
 
@@ -30,10 +32,10 @@ class HomeFragment : Fragment() {
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
+        val receiptsViewModel: ReceiptsViewModel = ViewModelProvider(this).get(ReceiptsViewModel::class.java)
 
-        val dataset = DataSource(root.context).getData()
         viewManager = LinearLayoutManager(root.context)
-        viewAdapter = ReceiptListAdapter(dataset)
+        viewAdapter = ReceiptListAdapter(receiptsViewModel)
 
         recyclerView = root.findViewById<RecyclerView>(R.id.home_recycle_view).apply {
             layoutManager = viewManager
@@ -43,5 +45,9 @@ class HomeFragment : Fragment() {
             DividerItemDecoration(recyclerView.context, DividerItemDecoration.VERTICAL)
         )
         return root
+    }
+
+    fun getData() {
+
     }
 }

@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 
 @Entity
-class Store (
-    @PrimaryKey val storeId: Int,
-    val Name: String
+class Category (
+    @PrimaryKey val CategoryId: Int,
+    val Category: String
 )
