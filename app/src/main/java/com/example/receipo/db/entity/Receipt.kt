@@ -1,19 +1,18 @@
 package com.example.receipo.db.entity
 
-import com.example.receipo.db.entity.Item
-import com.example.receipo.db.entity.Store
 import androidx.room.*
 
 @Entity
-data class Receipt (
-    @PrimaryKey val receiptId: Int,
-    val creationDate: String?,
-    val expirationDate: String?,
-    val receiptStoreId: Int,
-    val categoryId: Int,
-    val thumbNailPath: String?,
-    val scanImagePath: String?,
-    val price: String?
+data class Receipt(
+    @PrimaryKey(autoGenerate = true)
+    var receiptId: Long = 0,
+    var creationDate: String,
+    var expirationDate: String?,
+    var receiptStoreId: Long,
+    var categoryId: Long,
+    var thumbNailPath: String?,
+    var scanImagePath: String?,
+    var price: String
 )
 
 

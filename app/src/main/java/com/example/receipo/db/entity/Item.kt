@@ -6,10 +6,11 @@ import androidx.room.PrimaryKey
 
 @Entity
 class Item (
-    @PrimaryKey val id: Int,
+    @PrimaryKey(autoGenerate = true)
+    val id: Long = 0,
     val thumbNailPath: String?,
     val scanPath: String?,
-    val description: String?,
-    val price: Int?,
+    val description: String,
+    val price: Int,
     val parentReceiptId: Int
 )

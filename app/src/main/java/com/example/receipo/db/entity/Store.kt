@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 class Store (
-    @PrimaryKey val storeId: Int,
+    @PrimaryKey(autoGenerate = true)
+    var storeId: Long = 0,
     val Name: String
 )

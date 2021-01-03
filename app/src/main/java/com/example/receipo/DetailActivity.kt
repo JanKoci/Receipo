@@ -18,15 +18,32 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.recyclerview.widget.RecyclerView
+import com.example.receipo.db.entity.Item
+import com.example.receipo.db.entity.Receipt
 import com.google.android.material.appbar.AppBarLayout
+import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 import kotlin.math.max
 import kotlin.math.min
+import android.util.Log
+
 
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
+
+    private var job: Job = Job()
+
+     val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + job
+
+    override fun onDestroy() {
+        super.onDestroy()
+        job.cancel()
+    }
 
     // Hold a reference to the current animator,
     // so that it can be canceled mid-way.
@@ -40,6 +57,9 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var scaleGestureDetector: ScaleGestureDetector
     private var scaleFactor = 1.0f
 
+    private lateinit var detailListAdapter: DetailListAdapter
+    private lateinit var receiptsViewModel: ReceiptsViewModel
+    private lateinit var itemViewModel: ItemViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,31 +70,55 @@ class DetailActivity : AppCompatActivity() {
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowHomeEnabled(true)
         }
-        println("fuck")
         //supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        initData()
         // get data from Intent
-        val receiptData = intent.getStringArrayExtra(DETAIL_EXTRA_MESSAGE)
-        val shopName = receiptData?.get(0)
-        val creationDate = receiptData?.get(1)
-        val price = receiptData?.get(2)
+        val receiptId: Long = intent.getLongExtra(DETAIL_EXTRA_MESSAGE, 0)
+//        val shopName = receiptData?.get(0)
+//        val creationDate = receiptData?.get(1)
+//        val price = receiptData?.get(2)
+//        var receiptId: Long = receiptData.toLong()
+        var receipt: Receipt? = null
+        var shopName: String = String()
+        Log.d("DetailAct", receiptId.toString())
+        runBlocking {
+            withContext(Dispatchers.IO) {
+                receipt = receiptsViewModel.getReceiptById(receiptId)
+            }
+        }
+
+        Log.d("DetailAct", receipt.toString())
         // set given values
         findViewById<TextView>(R.id.store_name_text_view).apply {
-            text = shopName
+            text = receipt!!.receiptStoreId.toString()
         }
+        Log.d("DetailAct", receipt?.creationDate.toString())
         findViewById<TextView>(R.id.creation_date_value).apply {
-            text = creationDate
+            text = receipt!!.creationDate
         }
         findViewById<TextView>(R.id.expiration_date_value).apply {
-            text = creationDate
+            text = receipt!!.expirationDate
         }
         findViewById<TextView>(R.id.price_text_view).apply {
-            text = price
+            text = receipt!!.price
         }
         val detail_content_layout: ConstraintLayout = findViewById(R.id.detail_layout)
 
-        val dataSource = DataSource(this).getData()
+        // get data from DB
         val recyclerView: RecyclerView = findViewById(R.id.detail_recycle_view)
-        recyclerView.adapter = DetailListAdapter(dataSource)
+        detailListAdapter = DetailListAdapter(context = this)
+        var items: List<Item> = listOf()
+        runBlocking {
+            withContext(Dispatchers.IO) {
+                items = getItems(receiptId = receiptId.toLong())
+            }
+        }
+        detailListAdapter.setReceiptItems(items)
+
+
+        recyclerView.apply {
+            adapter = detailListAdapter
+        }
 
         // Hook up clicks on the thumbnail views.
         val thumbnailView: View = findViewById(R.id.detail_receipt_scan_thumbnail)
@@ -93,6 +137,15 @@ class DetailActivity : AppCompatActivity() {
         //AppBarConfiguration(setOf(
         //    R.id.nav_home, R.id.nav_expired, R.id.nav_stats), detail_content_layout)
 
+    }
+
+    private fun initData() {
+        itemViewModel = ViewModelProvider(this).get(ItemViewModel::class.java)
+        receiptsViewModel = ViewModelProvider(this).get(ReceiptsViewModel::class.java)
+    }
+
+    private suspend fun getItems(receiptId: Long): List<Item> {
+        return itemViewModel.getAll(receiptId)
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {

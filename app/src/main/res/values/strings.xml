@@ -10,7 +10,7 @@
     <string name="menu_home">Home</string>
     <string name="menu_expired">Expired</string>
     <string name="menu_stats">Statistics</string>
-    <string name="detail_creation_date">Creation date</string>
+    <string name="detail_creation_date">Purchase date</string>
     <string name="detail_expiration_date">Expiration date</string>
     <string name="receipt_scan_enlarged">Receipt scan enlarged</string>
     <string name="receipt_scan_thumbnail">Receipt scan thumbnail</string>

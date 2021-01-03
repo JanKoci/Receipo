@@ -10,13 +10,22 @@ import com.example.receipo.db.entity.Receipt
 class ReceiptsViewModel(application: Application) : AndroidViewModel(application) {
 
     private val receiptsDao : ReceiptDao = ReceiptDatabase.getDatabase(application).receiptDao()
+    val receiptList: LiveData<List<Receipt>>
 
-    suspend fun getAll(): LiveData<List<Receipt>>  {
-        return receiptsDao.getAllReceipts()
+    init {
+        receiptList = receiptsDao.allReceipts
     }
+
+//    suspend fun getAll(): LiveData<List<Receipt>>  {
+//        return receiptsDao.getAllReceipts()
+//    }
 
     suspend fun insert(vararg receipts: Receipt) {
         receiptsDao.insertReceipts(*receipts)
+    }
+
+    suspend fun getReceiptById(receiptId: Long): Receipt? {
+        return receiptsDao.getReceiptById(receiptId)
     }
 
     suspend fun update(receipt: Receipt) {
