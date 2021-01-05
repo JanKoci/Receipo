@@ -18,6 +18,7 @@
     <string name="creation_date">Date</string>
     <string name="creation_items">Items</string>
     <string name="creation_scan">Scan</string>
+    <string name="creation_image">Image</string>
     <string name="creation_overview">OverView</string>
 
     <string-array name="shops_array">
