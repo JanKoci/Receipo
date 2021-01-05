@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/creation_navigation"
+    app:startDestination="@+id/nav_category">
+
+    <fragment
+        android:id="@+id/nav_category"
+        android:name="com.example.receipo.ui.creation.CategoryFragment"
+        android:label="@string/creation_category"
+        tools:layout="@layout/fragment_category" >
+        <action
+            android:id="@+id/category_to_store"
+            app:destination="@id/nav_store" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_store"
+        android:name="com.example.receipo.ui.creation.StoreFragment"
+        android:label="@string/creation_store"
+        tools:layout="@layout/fragment_store">
+        <action
+            android:id="@+id/store_to_date"
+            app:destination="@id/nav_date" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_date"
+        android:name="com.example.receipo.ui.creation.DateFragment"
+        android:label="@string/creation_date"
+        tools:layout="@layout/fragment_date">
+        <action
+            android:id="@+id/date_to_items"
+            app:destination="@id/nav_items" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_items"
+        android:name="com.example.receipo.ui.creation.ItemsFragment"
+        android:label="@string/creation_items"
+        tools:layout="@layout/fragment_items">
+        <action
+            android:id="@+id/items_to_scan"
+            app:destination="@id/nav_scan" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_scan"
+        android:name="com.example.receipo.ui.creation.ScanFragment"
+        android:label="@string/creation_scan"
+        tools:layout="@layout/fragment_scan">
+        <action
+            android:id="@+id/scan_to_image"
+            app:destination="@id/nav_image" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_image"
+        android:name="com.example.receipo.ui.creation.ImageFragment"
+        android:label="@string/creation_image"
+        tools:layout="@layout/fragment_image">
+    </fragment>
+
+
+</navigation>
