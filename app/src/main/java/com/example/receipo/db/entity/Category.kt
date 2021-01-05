@@ -5,8 +5,8 @@ import androidx.room.PrimaryKey
 
 
 @Entity
-class Store (
+class Category (
     @PrimaryKey(autoGenerate = true)
-    var storeId: Long = 0,
+    var categoryId: Long = 0,
     val Name: String
 )

@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,13 +15,22 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.receipo.DataSource
 import com.example.receipo.R
 import com.example.receipo.ReceiptListAdapter
+import com.example.receipo.ReceiptsViewModel
+import com.example.receipo.db.entity.Receipt
 
 class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var recyclerView: RecyclerView
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
+    private lateinit var receiptsAdapter: ReceiptListAdapter
+    private lateinit var receiptsViewModel: ReceiptsViewModel
     private lateinit var viewManager: RecyclerView.LayoutManager
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initData()
+    }
 
 
     override fun onCreateView(
@@ -27,21 +38,33 @@ class HomeFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
+        initView(root)
+        return root
+    }
 
-        val dataset = DataSource(root.context).getData()
-        viewManager = LinearLayoutManager(root.context)
-        viewAdapter = ReceiptListAdapter(dataset)
-
-        recyclerView = root.findViewById<RecyclerView>(R.id.home_recycle_view).apply {
+    private fun initView(view: View) {
+        viewManager = LinearLayoutManager(view.context)
+        receiptsAdapter = ReceiptListAdapter(requireContext())
+        recyclerView = view.findViewById<RecyclerView>(R.id.home_recycle_view).apply {
             layoutManager = viewManager
-            adapter = viewAdapter
+            adapter = receiptsAdapter
         }
         recyclerView.addItemDecoration(
             DividerItemDecoration(recyclerView.context, DividerItemDecoration.VERTICAL)
         )
-        return root
+    }
+
+    private fun initData() {
+        receiptsViewModel = ViewModelProvider(this).get(ReceiptsViewModel::class.java)
+        receiptsViewModel.receiptList.observe(this,
+            Observer { receipts: List<Receipt> ->
+                receiptsAdapter.setReceiptList(receipts)
+            }
+        )
+    }
+
+    companion object {
+        fun newInstance(): HomeFragment = HomeFragment()
     }
 }

@@ -57,13 +57,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun goToDetail(view: View) {
-        val shop = view.findViewById<TextView>(R.id.text_shop).text.toString()
-        val date = view.findViewById<TextView>(R.id.text_date).text.toString()
-        val price = view.findViewById<TextView>(R.id.text_price).text.toString()
+        val shopTextView = view.findViewById<TextView>(R.id.text_shop)
+        val receiptId: Long = shopTextView.tag.toString().toLong()
 
         val intent = Intent(this, DetailActivity::class.java)
 
-        intent.putExtra(DETAIL_EXTRA_MESSAGE, arrayOf(shop, date, price))
+        intent.putExtra(DETAIL_EXTRA_MESSAGE, receiptId)
         startActivity(intent)
     }
 

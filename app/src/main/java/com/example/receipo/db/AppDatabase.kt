@@ -1,4 +1,52 @@
 package com.example.receipo.db
 
-class AppDatabase {
+import android.content.Context
+import android.util.Log
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
+import com.example.receipo.db.dao.ReceiptDao
+import com.example.receipo.db.entity.Receipt
+import com.example.receipo.db.entity.Item
+import com.example.receipo.db.entity.Store
+import com.example.receipo.db.entity.Category
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+
+@Database(entities = [
+            Receipt::class,
+            Item::class,
+            Store::class,
+            Category::class
+          ],
+          version = 3)
+abstract class ReceiptDatabase : RoomDatabase() {
+    abstract fun receiptDao(): ReceiptDao
+
+    companion object {
+        private var INSTANCE: ReceiptDatabase? = null
+        private const val DB_NAME = "receipo_db"
+
+        fun getDatabase(context: Context): ReceiptDatabase {
+            if (INSTANCE == null) {
+                synchronized(ReceiptDatabase::class.java) {
+                    if (INSTANCE == null) {
+                        INSTANCE = Room.databaseBuilder(context.applicationContext, ReceiptDatabase::class.java, DB_NAME)
+                            .addCallback(object: Callback(){
+                                override fun onCreate(db: SupportSQLiteDatabase) {
+                                    super.onCreate(db)
+                                    Log.d("ReceiptDB","Populating DB")
+                                    GlobalScope.launch(Dispatchers.IO) { rePopulateDb(INSTANCE) }
+                                }
+                            })
+                            .fallbackToDestructiveMigration()
+                            .build()
+                    }
+                }
+            }
+            return INSTANCE!!
+        }
+    }
 }
