@@ -8,5 +8,5 @@ import androidx.room.PrimaryKey
 class Store (
     @PrimaryKey(autoGenerate = true)
     var storeId: Long = 0,
-    val Name: String
+    val name: String
 )

@@ -7,12 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL
 import androidx.recyclerview.widget.RecyclerView
-import com.example.receipo.DataSource
 import com.example.receipo.R
 import com.example.receipo.ReceiptListAdapter
 import com.example.receipo.ReceiptsViewModel
@@ -32,7 +29,6 @@ class HomeFragment : Fragment() {
         initData()
     }
 
-
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -45,7 +41,9 @@ class HomeFragment : Fragment() {
 
     private fun initView(view: View) {
         viewManager = LinearLayoutManager(view.context)
-        receiptsAdapter = ReceiptListAdapter(requireContext())
+        receiptsViewModel = ViewModelProvider(this).get(ReceiptsViewModel::class.java)
+
+        receiptsAdapter = ReceiptListAdapter(requireContext(), receiptsViewModel)
         recyclerView = view.findViewById<RecyclerView>(R.id.home_recycle_view).apply {
             layoutManager = viewManager
             adapter = receiptsAdapter
@@ -56,7 +54,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun initData() {
-        receiptsViewModel = ViewModelProvider(this).get(ReceiptsViewModel::class.java)
         receiptsViewModel.receiptList.observe(this,
             Observer { receipts: List<Receipt> ->
                 receiptsAdapter.setReceiptList(receipts)

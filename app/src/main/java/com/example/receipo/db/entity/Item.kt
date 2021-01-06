@@ -5,12 +5,12 @@ import androidx.room.PrimaryKey
 
 
 @Entity
-class Item (
+class Item(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
-    val thumbNailPath: String?,
+//    val thumbNailPath: String?,
     val scanPath: String?,
     val description: String,
-    val price: Int,
-    val parentReceiptId: Int
+    val price: Double,
+    val parentReceiptId: Long
 )

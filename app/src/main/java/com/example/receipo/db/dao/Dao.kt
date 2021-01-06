@@ -8,7 +8,7 @@ import com.example.receipo.db.entity.Receipt
 import com.example.receipo.db.entity.Store
 
 @Dao
-interface ReceiptDao {
+interface ReceiptDaoOld {
     @get: Query("SELECT * FROM receipt ORDER BY creationDate")
     val allReceipts: LiveData<List<Receipt>>
 
