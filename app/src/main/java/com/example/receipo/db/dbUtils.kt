@@ -23,6 +23,8 @@ suspend fun rePopulateDb(database: ReceiptDatabase?) {
             val itemDao: ItemDao = db.itemDao()
             val storeDao: StoreDao = db.storeDao()
             val categoryDao: CategoryDao = db.categoryDao()
+            
+            val dateNow = LocalDate.now().toString()
 
             receiptDao.deleteAll()
 
@@ -42,26 +44,26 @@ suspend fun rePopulateDb(database: ReceiptDatabase?) {
                                            Store(name = "Sparkys"))
 
             val receiptIds = receiptDao.insert(
-                            Receipt(creationDate = LocalDate.now(),
-                                    expirationDate = LocalDate.now(),
+                            Receipt(creationDate = dateNow,
+                                    expirationDate = dateNow,
                                     receiptStoreId = storeIds[0],
                                     categoryId = categoryIds[0],
                                     scanImagePath = "/path/to/scan"),
 
-                            Receipt(creationDate = LocalDate.now(),
-                                    expirationDate = LocalDate.now(),
+                            Receipt(creationDate = dateNow,
+                                    expirationDate = dateNow,
                                     receiptStoreId = storeIds[1],
                                     categoryId = categoryIds[1],
                                     scanImagePath = "/path/to/scan"),
 
-                            Receipt(creationDate = LocalDate.now(),
-                                    expirationDate = LocalDate.now(),
+                            Receipt(creationDate = dateNow,
+                                    expirationDate = dateNow,
                                     receiptStoreId = storeIds[2],
                                     categoryId = categoryIds[2],
                                     scanImagePath = "/path/to/scan"),
 
-                            Receipt(creationDate = LocalDate.now(),
-                                    expirationDate = LocalDate.now(),
+                            Receipt(creationDate = dateNow,
+                                    expirationDate = dateNow,
                                     receiptStoreId = storeIds[3],
                                     categoryId = categoryIds[3],
                                     scanImagePath = "/path/to/scan"))
@@ -85,7 +87,12 @@ suspend fun rePopulateDb(database: ReceiptDatabase?) {
                             Item(scanPath = "/path/to/scan",
                                 description = "Headphones Bose",
                                 price = 7499.0,
-                                parentReceiptId = receiptIds[2]))
+                                parentReceiptId = receiptIds[2]),
+
+                            Item(scanPath = "/path/to/scan",
+                                description = "Bedroom Table",
+                                price = 799.0,
+                                parentReceiptId = receiptIds[3]))
         }
     }
 }

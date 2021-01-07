@@ -80,27 +80,32 @@ class DetailActivity : AppCompatActivity() {
 //        var receiptId: Long = receiptData.toLong()
         var receipt: Receipt? = null
         var shopName: String = String()
+        var price: Double = 0.0
+
         Log.d("DetailAct", receiptId.toString())
         runBlocking {
             withContext(Dispatchers.IO) {
                 receipt = receiptsViewModel.getReceiptById(receiptId)
+                shopName = receiptsViewModel.getStoreName(receipt!!.receiptStoreId)
+                price = receiptsViewModel.getReceiptPrice(receiptId)
             }
         }
 
         Log.d("DetailAct", receipt.toString())
         // set given values
         findViewById<TextView>(R.id.store_name_text_view).apply {
-            text = receipt!!.receiptStoreId.toString()
+            text = shopName
         }
         Log.d("DetailAct", receipt?.creationDate.toString())
         findViewById<TextView>(R.id.creation_date_value).apply {
-            text = receipt!!.creationDate
+            text = receipt!!.creationDate.toString()
         }
         findViewById<TextView>(R.id.expiration_date_value).apply {
-            text = receipt!!.expirationDate
+            text = receipt!!.expirationDate.toString()
         }
+        val priceString = "$price KČ"
         findViewById<TextView>(R.id.price_text_view).apply {
-            text = receipt!!.price
+            text = priceString
         }
         val detail_content_layout: ConstraintLayout = findViewById(R.id.detail_layout)
 

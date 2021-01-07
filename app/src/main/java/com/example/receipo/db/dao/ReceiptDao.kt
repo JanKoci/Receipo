@@ -11,26 +11,29 @@ interface ReceiptDao {
     val allReceipts: LiveData<List<Receipt>>
 
     @Query("SELECT * FROM receipt")
-    fun getAll(): List<Receipt>
+    suspend fun getAll(): List<Receipt>
 
     @Query("SELECT * FROM item WHERE parentReceiptId=:receiptId")
-    fun getItems(receiptId: Long): List<Item>
+    suspend fun getItems(receiptId: Long): List<Item>
 
     @Query("SELECT * FROM receipt WHERE receiptId=:id")
-    fun getById(id: Long): Receipt
+    suspend fun getById(id: Long): Receipt
+
+    @Query("SELECT SUM(price) FROM item WHERE parentReceiptId=:receiptId")
+    suspend fun getPrice(receiptId: Long): Double
 
     @Query("SELECT COUNT() FROM receipt")
-    fun getCount(): Int
+    suspend fun getCount(): Int
 
     @Query("DELETE FROM receipt")
-    fun deleteAll()
+    suspend fun deleteAll()
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(vararg receipts: Receipt): List<Long>
+    suspend fun insert(vararg receipts: Receipt): List<Long>
 
     @Update
-    fun update(vararg receipts: Receipt)
+    suspend fun update(vararg receipts: Receipt)
 
     @Delete
-    fun delete(vararg receipts: Receipt)
+    suspend fun delete(vararg receipts: Receipt)
 }

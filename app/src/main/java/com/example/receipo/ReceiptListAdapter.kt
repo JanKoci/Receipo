@@ -9,6 +9,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.receipo.db.entity.Item
 import com.example.receipo.db.entity.Receipt
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import java.time.LocalDate
 
 
@@ -29,14 +32,14 @@ class ReceiptListAdapter(val context: Context, val viewModel: ReceiptsViewModel)
         private val priceTextView: TextView = itemView.findViewById(R.id.text_price)
         private val imageView: ImageView = itemView.findViewById(R.id.item_image_view)
 
-        fun bind(receiptId: Long, shop: String, purchaseDate: LocalDate, price: Double) {
+        fun bind(receiptId: Long, shop: String, purchaseDate: String, price: Double, items: String) {
+            val priceString = "$price KČ"
             shopTextView.text = shop
             shopTextView.tag = receiptId.toInt()
-            dateTextView.text = purchaseDate.toString()
-            priceTextView.text = price.toString()
-            // TODO: pri ukladani uctenky vytvorit vypis itemu
+            dateTextView.text = purchaseDate
+            priceTextView.text = priceString
+            itemsTextView.text = items
 //            imageView.setImageResource(R.mipmap.ic_clothes_round)
-//            view.text = word
         }
     }
 
@@ -55,12 +58,20 @@ class ReceiptListAdapter(val context: Context, val viewModel: ReceiptsViewModel)
     }
 
     override fun onBindViewHolder(holder: ReceiptListViewHolder, position: Int) {
-        // TODO: 06/01/2021 Should working with viewModel here be runBlocking ?
         val item = receiptsList?.get(position)
-        val store: String = viewModel.getStoreName(item!!.receiptStoreId)
-        val receiptItems = viewModel.getItemsByReceipt(item.receiptId)
+        var store= ""
+        var receiptItems: List<Item> = listOf()
 
-        holder.bind(item.receiptId, store, item.creationDate, calculatePrice(receiptItems))
+        runBlocking {
+            withContext(Dispatchers.IO) {
+                store = viewModel.getStoreName(item!!.receiptStoreId)
+                receiptItems = viewModel.getItemsByReceipt(item.receiptId)
+            }
+        }
+        if (item != null) {
+            holder.bind(item.receiptId, store, item.creationDate,
+                        calculatePrice(receiptItems), itemsToString(receiptItems))
+        }
     }
 
     private fun calculatePrice(items: List<Item>): Double {
@@ -69,6 +80,10 @@ class ReceiptListAdapter(val context: Context, val viewModel: ReceiptsViewModel)
             sum += item.price
         }
         return sum
+    }
+
+    private fun itemsToString(items: List<Item>): String {
+        return items.joinToString(separator = ", ", transform = {item -> item.description })
     }
 
 }

@@ -53,5 +53,9 @@ class ReceiptsViewModel(application: Application) : AndroidViewModel(application
         return receiptDao.getItems(receiptId)
     }
 
+    suspend fun getReceiptPrice(receiptId: Long): Double {
+        return receiptDao.getPrice(receiptId)
+    }
+
 
 }

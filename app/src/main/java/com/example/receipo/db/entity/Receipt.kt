@@ -4,14 +4,13 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.Relation
-import java.time.LocalDate
 
 @Entity
 data class Receipt(
     @PrimaryKey(autoGenerate = true)
     var receiptId: Long = 0,
-    var creationDate: LocalDate,
-    var expirationDate: LocalDate?,
+    var creationDate: String,
+    var expirationDate: String?,
     var receiptStoreId: Long,
     var categoryId: Long,
 //    var thumbNailPath: String?,

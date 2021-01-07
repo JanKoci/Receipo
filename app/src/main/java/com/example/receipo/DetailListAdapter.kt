@@ -52,9 +52,10 @@ class DetailListAdapter(val context: Context):
         private val nameTextView: TextView = itemView.findViewById(R.id.detail_item_name)
         private val priceTextView: TextView = itemView.findViewById(R.id.detail_item_price)
 
-        fun bind(name: String, price: Int) {
+        fun bind(name: String, price: Double) {
+            val priceString = "$price KČ"
             nameTextView.text = name
-            priceTextView.text = price.toString()
+            priceTextView.text = priceString
         }
     }
 

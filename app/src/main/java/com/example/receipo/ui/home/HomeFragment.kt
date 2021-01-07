@@ -26,6 +26,7 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        receiptsViewModel = ViewModelProvider(this).get(ReceiptsViewModel::class.java)
         initData()
     }
 
@@ -41,7 +42,6 @@ class HomeFragment : Fragment() {
 
     private fun initView(view: View) {
         viewManager = LinearLayoutManager(view.context)
-        receiptsViewModel = ViewModelProvider(this).get(ReceiptsViewModel::class.java)
 
         receiptsAdapter = ReceiptListAdapter(requireContext(), receiptsViewModel)
         recyclerView = view.findViewById<RecyclerView>(R.id.home_recycle_view).apply {
