@@ -1,6 +1,5 @@
 package com.example.receipo
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,10 +11,9 @@ import com.example.receipo.db.entity.Receipt
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
-import java.time.LocalDate
 
 
-class ReceiptListAdapter(val context: Context, val viewModel: ReceiptsViewModel):
+class ReceiptListAdapter(val viewModel: ReceiptsViewModel):
     RecyclerView.Adapter<ReceiptListAdapter.ReceiptListViewHolder>() {
 
     private var receiptsList: List<Receipt>? = null

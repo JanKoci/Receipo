@@ -6,9 +6,17 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.receipo.R
+import com.example.receipo.db.entity.Store
 
-class StoreAdapter(val stores: Array<String>):
+class StoreAdapter:
         RecyclerView.Adapter<StoreAdapter.StoreViewHolder>() {
+
+    private var storeList: List<Store>? = null
+
+    fun setList(stores: List<Store>) {
+        storeList = stores
+        notifyDataSetChanged()
+    }
 
     class StoreViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         private val storeTextView: TextView = itemView.findViewById(R.id.store_name)
@@ -25,10 +33,14 @@ class StoreAdapter(val stores: Array<String>):
     }
 
     override fun onBindViewHolder(holder: StoreViewHolder, position: Int) {
-        holder.bind(stores[position])
+        holder.bind(storeList!!.get(position).name)
     }
 
     override fun getItemCount(): Int {
-        return stores.size
+        return if (storeList == null) {
+            0
+        } else {
+            storeList!!.size
+        }
     }
 }

@@ -41,9 +41,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun initView(view: View) {
-        viewManager = LinearLayoutManager(view.context)
+        viewManager = LinearLayoutManager(requireContext())
+        receiptsAdapter = ReceiptListAdapter(receiptsViewModel)
 
-        receiptsAdapter = ReceiptListAdapter(requireContext(), receiptsViewModel)
         recyclerView = view.findViewById<RecyclerView>(R.id.home_recycle_view).apply {
             layoutManager = viewManager
             adapter = receiptsAdapter
@@ -59,9 +59,5 @@ class HomeFragment : Fragment() {
                 receiptsAdapter.setReceiptList(receipts)
             }
         )
-    }
-
-    companion object {
-        fun newInstance(): HomeFragment = HomeFragment()
     }
 }

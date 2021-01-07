@@ -5,18 +5,30 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.receipo.R
+import com.example.receipo.db.entity.Category
+import com.example.receipo.db.entity.Store
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class StoreFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
+    private lateinit var viewAdapter: StoreAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
+    private lateinit var viewModel: StoreViewModel
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this).get(StoreViewModel::class.java)
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,9 +37,8 @@ class StoreFragment : Fragment() {
         // Inflate the layout for this fragment
         val root = inflater.inflate(R.layout.fragment_store, container, false)
 
-        val dataset = root.context.resources.getStringArray(R.array.shops_array)
         viewManager = LinearLayoutManager(root.context)
-        viewAdapter = StoreAdapter(dataset)
+        viewAdapter = StoreAdapter()
 
         recyclerView = root.findViewById<RecyclerView>(R.id.store_recycle_view).apply {
             layoutManager = viewManager
@@ -36,6 +47,8 @@ class StoreFragment : Fragment() {
         recyclerView.addItemDecoration(
             DividerItemDecoration(recyclerView.context, DividerItemDecoration.VERTICAL)
         )
+        // initialize data
+        initData()
 
         val fabAddNew: ExtendedFloatingActionButton = root.findViewById(R.id.efab_store)
 
@@ -49,5 +62,15 @@ class StoreFragment : Fragment() {
         })
 
         return root
+    }
+
+
+    private fun initData() {
+        // initialize stores in adapter and setup observer
+        viewModel.storeList.observe(viewLifecycleOwner,
+            Observer { stores: List<Store> ->
+                viewAdapter.setList(stores)
+            }
+        )
     }
 }

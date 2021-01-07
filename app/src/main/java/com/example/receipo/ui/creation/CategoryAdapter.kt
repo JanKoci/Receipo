@@ -6,14 +6,22 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.receipo.R
+import com.example.receipo.db.entity.Category
 
-class CategoryAdapter(val categories: Array<String>):
+class CategoryAdapter:
     RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
+
+    private var categoryList: List<Category>? = null
+
+    fun setList(categories: List<Category>) {
+        categoryList = categories
+        notifyDataSetChanged()
+    }
 
     class CategoryViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         private val categoryTextView: TextView = itemView.findViewById(R.id.category_name)
 
-        fun bind(name: String) {
+        fun bind(name: String, icon: Int) {
             categoryTextView.text = name
         }
     }
@@ -25,10 +33,14 @@ class CategoryAdapter(val categories: Array<String>):
     }
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-        holder.bind(categories[position])
+        holder.bind(categoryList!!.get(position).name, 0)
     }
 
     override fun getItemCount(): Int {
-        return categories.size
+        return if (categoryList == null) {
+            0
+        } else {
+            categoryList!!.size
+        }
     }
 }

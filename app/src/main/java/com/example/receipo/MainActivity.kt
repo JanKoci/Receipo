@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
 
 
     fun createNewReceipt(view: View) {
-        intent = Intent(this, CreationActivity::class.java)
+        val intent = Intent(this, CreationActivity::class.java)
         startActivity(intent)
     }
 }
