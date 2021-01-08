@@ -2,6 +2,8 @@ package com.example.receipo.db
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import com.example.receipo.db.ReceiptDatabase.Companion.DEFAULT_CATEGORY_ID
+import com.example.receipo.db.ReceiptDatabase.Companion.DEFAULT_CATEGORY_NAME
 import com.example.receipo.db.dao.CategoryDao
 import com.example.receipo.db.dao.ItemDao
 import com.example.receipo.db.dao.ReceiptDao
@@ -29,11 +31,13 @@ suspend fun rePopulateDb(database: ReceiptDatabase?) {
             receiptDao.deleteAll()
 
             // create default categories
-            val categoryIds = categoryDao.insert(Category(name = "Sport"),
-                                                 Category(name = "Clothing"),
-                                                 Category(name = "Electronics"),
-                                                 Category(name = "Furniture"),
-                                                 Category(name = "Other"))
+
+            val categoryIds = categoryDao.insert(
+                         Category(categoryId = DEFAULT_CATEGORY_ID, name = DEFAULT_CATEGORY_NAME),
+                         Category(name = "Sport"),
+                         Category(name = "Clothing"),
+                         Category(name = "Electronics"),
+                         Category(name = "Furniture"))
 
 
             // create dumb test data

@@ -14,6 +14,7 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.core.content.FileProvider
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.receipo.R
@@ -44,6 +45,7 @@ class ScanFragment : Fragment() {
     }
 
     lateinit var currentPhotoPath: String
+    lateinit var currentPhotoUri: Uri
 
     @Throws(IOException::class)
     private fun createImageFile(): File {
@@ -103,6 +105,7 @@ class ScanFragment : Fragment() {
                     "com.example.receipo.android.fileprovider",
                     it
                 )
+                currentPhotoUri = photoURI
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
             }
@@ -123,15 +126,15 @@ class ScanFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == RESULT_OK) {
             if (requestCode == REQUEST_IMAGE_CAPTURE && data != null) {
-                // TODO: 04/01/2021
-                // save image URI to database
-                Toast.makeText(requireContext(), "Camera", Toast.LENGTH_LONG).show()
-                findNavController().navigate(R.id.scan_to_image)
+                // send scan uri to ImageFragment
+                val bundle = bundleOf("scanUri" to currentPhotoUri)
+                findNavController().navigate(R.id.scan_to_image, bundle)
 
             } else if (requestCode == REQUEST_GALLERY_CODE && data != null) {
-                // TODO: 04/01/2021
-                // save image URI to database
-                Toast.makeText(requireContext(), "Gallery", Toast.LENGTH_LONG).show()
+//                Toast.makeText(requireContext(), "Gallery", Toast.LENGTH_LONG).show()
+                // send scan uri to ImageFragment
+                val bundle = bundleOf("scanUri" to currentPhotoUri)
+                findNavController().navigate(R.id.scan_to_image, bundle)
             }
         } else {
             Toast.makeText(requireContext(), "CANCELED ", Toast.LENGTH_LONG).show()

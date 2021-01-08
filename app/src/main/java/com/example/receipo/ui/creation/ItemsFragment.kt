@@ -9,13 +9,13 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.receipo.R
+import com.example.receipo.db.entity.Item
 import com.example.receipo.model.ReceiptItem
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class ItemsFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
-//    private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewAdapter: ItemsAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
     private var itemsList: MutableList<ReceiptItem> = mutableListOf()
@@ -50,4 +50,9 @@ class ItemsFragment : Fragment() {
         itemsList.add(newItem)
         viewAdapter.notifyItemInserted(itemsList.size - 1)
     }
+
+    fun getItems(): List<ReceiptItem> {
+        return viewAdapter.itemsList
+    }
+
 }

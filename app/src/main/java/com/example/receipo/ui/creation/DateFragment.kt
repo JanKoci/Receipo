@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.receipo.R
 import java.text.DateFormat
+import java.time.LocalDate
 import java.util.*
 
 class DateFragment : Fragment() {
@@ -44,6 +45,8 @@ class DateFragment : Fragment() {
         val cal = Calendar.getInstance()
         cal.set(year, month, dayOfMonth)
         setDateText(cal)
+        // plus pass the date to object
+        (activity as CreationActivity).purchaseDate = LocalDate.of(year, month+1, dayOfMonth)
     }
 
     private fun setDateText(cal: Calendar) {

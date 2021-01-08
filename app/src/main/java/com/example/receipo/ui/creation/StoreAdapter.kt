@@ -21,8 +21,9 @@ class StoreAdapter:
     class StoreViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         private val storeTextView: TextView = itemView.findViewById(R.id.store_name)
 
-        fun bind(name: String) {
+        fun bind(name: String, id: Long) {
             storeTextView.text = name
+            storeTextView.tag = id
         }
     }
 
@@ -33,7 +34,8 @@ class StoreAdapter:
     }
 
     override fun onBindViewHolder(holder: StoreViewHolder, position: Int) {
-        holder.bind(storeList!!.get(position).name)
+        val store = storeList!!.get(position)
+        holder.bind(store.name, store.storeId)
     }
 
     override fun getItemCount(): Int {

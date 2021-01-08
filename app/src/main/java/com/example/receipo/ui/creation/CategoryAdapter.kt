@@ -21,8 +21,9 @@ class CategoryAdapter:
     class CategoryViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         private val categoryTextView: TextView = itemView.findViewById(R.id.category_name)
 
-        fun bind(name: String, icon: Int) {
+        fun bind(name: String, id: Long, icon: Int) {
             categoryTextView.text = name
+            categoryTextView.tag = id
         }
     }
 
@@ -33,7 +34,8 @@ class CategoryAdapter:
     }
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-        holder.bind(categoryList!!.get(position).name, 0)
+        holder.bind(categoryList!!.get(position).name,
+                    categoryList!!.get(position).categoryId, 0)
     }
 
     override fun getItemCount(): Int {

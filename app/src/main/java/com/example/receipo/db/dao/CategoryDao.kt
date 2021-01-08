@@ -15,6 +15,9 @@ interface CategoryDao {
     @Query("SELECT * FROM category WHERE categoryId=:id")
     suspend fun getById(id: Long): Category
 
+    @Query("SELECT categoryId FROM category WHERE name=:name")
+    suspend fun getByName(name: String): List<Long>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(vararg category: Category): List<Long>
 

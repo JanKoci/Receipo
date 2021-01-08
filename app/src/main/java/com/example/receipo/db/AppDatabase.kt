@@ -28,9 +28,10 @@ abstract class ReceiptDatabase : RoomDatabase() {
     abstract fun storeDao(): StoreDao
     abstract fun categoryDao(): CategoryDao
 
-
     companion object {
         private var INSTANCE: ReceiptDatabase? = null
+        const val DEFAULT_CATEGORY_ID: Long = 0
+        const val DEFAULT_CATEGORY_NAME = "Other"
         private const val DB_NAME = "receipo_db"
 
         fun getDatabase(context: Context): ReceiptDatabase {

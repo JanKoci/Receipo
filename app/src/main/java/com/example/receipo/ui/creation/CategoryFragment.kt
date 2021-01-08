@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.receipo.R
 import com.example.receipo.db.entity.Category
-import com.example.receipo.db.entity.Receipt
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
 class CategoryFragment : Fragment() {
@@ -22,7 +21,6 @@ class CategoryFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: CategoryAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
-    private val sharedViewModel: SharedViewModel by navGraphViewModels(R.id.nav_category)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

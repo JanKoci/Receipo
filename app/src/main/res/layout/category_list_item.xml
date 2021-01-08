@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center_vertical"
+    android:onClick="chooseCategory"
     android:orientation="horizontal">
 
     <ImageView
