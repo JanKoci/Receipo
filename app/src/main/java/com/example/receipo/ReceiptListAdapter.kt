@@ -72,6 +72,10 @@ class ReceiptListAdapter(val viewModel: ReceiptsViewModel):
         }
     }
 
+    fun getItemAtPosition(position: Int): Receipt? {
+        return if (position < itemCount) receiptsList?.get(position) else null
+    }
+
     private fun calculatePrice(items: List<Item>): Double {
         var sum = 0.0
         for (item in items) {

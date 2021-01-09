@@ -45,4 +45,8 @@ class StoreAdapter:
             storeList!!.size
         }
     }
+
+    fun getItem(position: Int): Store? {
+        return if (position < itemCount) storeList?.get(position) else null
+    }
 }

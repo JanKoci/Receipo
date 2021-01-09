@@ -22,9 +22,10 @@ class CreationViewModel(application: Application): AndroidViewModel(application)
 //        categoryDao.insert(category)
 //    }
 //
-//    suspend fun insertStore(store: Store) {
-//        storeDao.insert(store)
-//    }
+
+    suspend fun insertStore(store: Store): List<Long> {
+        return storeDao.insert(store)
+    }
 
     suspend fun insertItems(vararg items: Item) {
         itemDao.insert(*items)
@@ -32,9 +33,5 @@ class CreationViewModel(application: Application): AndroidViewModel(application)
 
     suspend fun insertReceipt(receipt: Receipt): List<Long> {
         return receiptDao.insert(receipt)
-    }
-
-    suspend fun getCategoryIdByName(name: String): List<Long> {
-        return categoryDao.getByName(name)
     }
 }

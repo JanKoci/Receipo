@@ -5,7 +5,9 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -17,6 +19,7 @@ import com.example.receipo.db.ReceiptDatabase
 import com.example.receipo.db.ReceiptDatabase.Companion.DEFAULT_CATEGORY_ID
 import com.example.receipo.db.entity.Item
 import com.example.receipo.db.entity.Receipt
+import com.example.receipo.db.entity.Store
 import com.example.receipo.model.ReceiptItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
@@ -70,7 +73,17 @@ class CreationActivity : AppCompatActivity() {
                     fragment.findNavController().navigate(R.id.category_to_store)
 
                 } else if (fragment is StoreFragment) {
-                    fragment.findNavController().navigate(R.id.store_to_date)
+                    Toast.makeText(this, "Select a Store", Toast.LENGTH_LONG).show()
+
+                } else if (fragment is NewStoreFragment) {
+                    val editTextInput = findViewById<EditText>(R.id.new_store_edit_text).text.toString()
+                    if (editTextInput == "") {
+                        Toast.makeText(this, "Please, type in the name of your new store",
+                                        Toast.LENGTH_LONG).show()
+                    } else {
+                        storeId = saveNewStoreToDatabase(editTextInput)
+                        fragment.findNavController().navigate(R.id.new_store_to_date)
+                    }
 
                 } else if (fragment is DateFragment) {
                     fragment.findNavController().navigate(R.id.date_to_items)
@@ -89,6 +102,17 @@ class CreationActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
         return true
+    }
+
+    private fun saveNewStoreToDatabase(storeName: String): Long? {
+        val newStore = Store(name = storeName)
+        var storeId: Long? = null
+        runBlocking {
+            withContext(Dispatchers.IO) {
+                storeId = viewModel.insertStore(newStore)[0]
+            }
+        }
+        return storeId
     }
 
     private fun saveToDatabase() {
@@ -110,12 +134,6 @@ class CreationActivity : AppCompatActivity() {
                                             expirationDate = expirationDate.toString(),
                                             scanImagePath = scanPath))
                 val receiptId = receiptIdsList[0]
-                val itemEntities = items.stream()
-                    .forEach{ item -> Item(description = item.description,
-                                            price = item.price,
-                                            parentReceiptId = receiptId,
-                                            scanPath = item.getImageUri())}
-
                 val items: List<Item> = items.map { item -> Item(description = item.description,
                                                                 price = item.price,
                                                                 parentReceiptId = receiptId,

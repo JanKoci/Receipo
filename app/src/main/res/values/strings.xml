@@ -8,6 +8,7 @@
     <string name="action_settings">Settings</string>
     <string name="action_next">Next</string>
     <string name="date_query">Pick date of purchase:</string>
+    <string name="new_store_query">Store Name:</string>
 
     <string name="menu_home">Home</string>
     <string name="menu_expired">Expired</string>
@@ -20,6 +21,7 @@
 
     <string name="creation_category">Category</string>
     <string name="creation_store">Store</string>
+    <string name="creation_new_store">New Store</string>
     <string name="creation_date">Date</string>
     <string name="creation_items">Items</string>
     <string name="creation_scan">Scan</string>
@@ -102,4 +104,6 @@
     <string name="title_activity_creation">CreationActivity</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

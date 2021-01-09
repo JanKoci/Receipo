@@ -7,7 +7,7 @@ import com.example.receipo.db.entity.Receipt
 
 @Dao
 interface ReceiptDao {
-    @get: Query("SELECT * FROM receipt ORDER BY creationDate")
+    @get: Query("SELECT * FROM receipt ORDER BY receiptId DESC")
     val allReceipts: LiveData<List<Receipt>>
 
     @Query("SELECT * FROM receipt")
@@ -18,6 +18,9 @@ interface ReceiptDao {
 
     @Query("SELECT * FROM receipt WHERE receiptId=:id")
     suspend fun getById(id: Long): Receipt
+
+    @Query("SELECT * FROM receipt WHERE receiptStoreId=:storeId")
+    suspend fun getByStore(storeId: Long): List<Receipt>
 
     @Query("SELECT SUM(price) FROM item WHERE parentReceiptId=:receiptId")
     suspend fun getPrice(receiptId: Long): Double

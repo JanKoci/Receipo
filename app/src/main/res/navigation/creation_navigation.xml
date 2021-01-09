@@ -23,6 +23,19 @@
         <action
             android:id="@+id/store_to_date"
             app:destination="@id/nav_date" />
+        <action
+            android:id="@+id/store_to_new_store"
+            app:destination="@id/nav_new_store" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_new_store"
+        android:name="com.example.receipo.ui.creation.NewStoreFragment"
+        android:label="@string/creation_new_store"
+        tools:layout="@layout/fragment_new_store">
+        <action
+            android:id="@+id/new_store_to_date"
+            app:destination="@id/nav_date" />
     </fragment>
 
     <fragment

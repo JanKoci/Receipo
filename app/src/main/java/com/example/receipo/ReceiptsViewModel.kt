@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.example.receipo.db.ReceiptDatabase
 import com.example.receipo.db.dao.CategoryDao
+import com.example.receipo.db.dao.ItemDao
 import com.example.receipo.db.dao.ReceiptDao
 import com.example.receipo.db.dao.StoreDao
 import com.example.receipo.db.entity.Item
@@ -15,6 +16,7 @@ class ReceiptsViewModel(application: Application) : AndroidViewModel(application
     private val receiptDao: ReceiptDao = ReceiptDatabase.getDatabase(application).receiptDao()
     private val storeDao: StoreDao = ReceiptDatabase.getDatabase(application).storeDao()
     private val categoryDao : CategoryDao = ReceiptDatabase.getDatabase(application).categoryDao()
+    private val itemDao : ItemDao = ReceiptDatabase.getDatabase(application).itemDao()
     val receiptList: LiveData<List<Receipt>>
 
     init {
@@ -37,7 +39,9 @@ class ReceiptsViewModel(application: Application) : AndroidViewModel(application
         receiptDao.update(receipt)
     }
 
-    suspend fun delete(receipt: Receipt) {
+    suspend fun deleteWithItems(receipt: Receipt) {
+        val items = receiptDao.getItems(receipt.receiptId)
+        itemDao.delete(*items.toTypedArray())
         receiptDao.delete(receipt)
     }
 
