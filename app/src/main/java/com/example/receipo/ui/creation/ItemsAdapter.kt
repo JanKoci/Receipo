@@ -97,7 +97,9 @@ class ItemsAdapter(val itemsList: MutableList<ReceiptItem>):
         }
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            itemsList[position!!].price = s.toString().toDouble()
+            if (!s.isNullOrEmpty()) {
+                itemsList[position!!].price = s.toString().toDouble()
+            }
         }
     }
 

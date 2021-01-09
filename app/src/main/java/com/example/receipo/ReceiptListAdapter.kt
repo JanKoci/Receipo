@@ -6,11 +6,15 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.receipo.db.ReceiptDatabase
+import com.example.receipo.db.ReceiptDatabase.Companion.DEFAULT_CATEGORY_ICON
 import com.example.receipo.db.entity.Item
 import com.example.receipo.db.entity.Receipt
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
+import java.text.NumberFormat
+import java.util.*
 
 
 class ReceiptListAdapter(val viewModel: ReceiptsViewModel):
@@ -30,14 +34,15 @@ class ReceiptListAdapter(val viewModel: ReceiptsViewModel):
         private val priceTextView: TextView = itemView.findViewById(R.id.text_price)
         private val imageView: ImageView = itemView.findViewById(R.id.item_image_view)
 
-        fun bind(receiptId: Long, shop: String, purchaseDate: String, price: Double, items: String) {
-            val priceString = "$price KČ"
+        fun bind(receiptId: Long, shop: String, purchaseDate: String,
+                 price: Double, items: String, iconId: Int) {
+            val priceString = "${NumberFormat.getInstance().format(price)} KČ"
             shopTextView.text = shop
             shopTextView.tag = receiptId.toInt()
             dateTextView.text = purchaseDate
             priceTextView.text = priceString
             itemsTextView.text = items
-//            imageView.setImageResource(R.mipmap.ic_clothes_round)
+            imageView.setImageResource(iconId)
         }
     }
 
@@ -58,17 +63,19 @@ class ReceiptListAdapter(val viewModel: ReceiptsViewModel):
     override fun onBindViewHolder(holder: ReceiptListViewHolder, position: Int) {
         val item = receiptsList?.get(position)
         var store= ""
+        var categoryIconId: Int = DEFAULT_CATEGORY_ICON
         var receiptItems: List<Item> = listOf()
 
         runBlocking {
             withContext(Dispatchers.IO) {
                 store = viewModel.getStoreName(item!!.receiptStoreId)
+                categoryIconId = viewModel.getCategory(item.categoryId).iconId
                 receiptItems = viewModel.getItemsByReceipt(item.receiptId)
             }
         }
         if (item != null) {
             holder.bind(item.receiptId, store, item.creationDate,
-                        calculatePrice(receiptItems), itemsToString(receiptItems))
+                        calculatePrice(receiptItems), itemsToString(receiptItems), categoryIconId)
         }
     }
 

@@ -47,16 +47,16 @@ class CategoryFragment : Fragment() {
         )
         initData()
 
-        val fabAddNew: ExtendedFloatingActionButton = root.findViewById(R.id.efab_category)
+//        val fabAddNew: ExtendedFloatingActionButton = root.findViewById(R.id.efab_category)
+//        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+//                if (dy > 0)
+//                    fabAddNew.hide()
+//                else if (dy < 0)
+//                    fabAddNew.show()
+//            }
+//        })
 
-        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                if (dy > 0)
-                    fabAddNew.hide()
-                else if (dy < 0)
-                    fabAddNew.show()
-            }
-        })
         return root
     }
 

@@ -23,13 +23,14 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"></meta-data>
+                android:resource="@xml/file_paths" />
         </provider>
 
         <activity
             android:name=".ui.creation.CreationActivity"
             android:label="@string/title_activity_creation"
-            android:theme="@style/MyMaterialTheme"></activity>
+            android:theme="@style/MyMaterialTheme"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".DetailActivity"
             android:label="Detail"

@@ -34,15 +34,6 @@
             app:layout_constraintTop_toTopOf="parent"
             />
 
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/efab_category"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:layout_gravity="bottom|center"
-            app:backgroundTint="@color/colorPrimary"
-            android:text="Create Category"
-            android:textColor="#ffffff" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <RelativeLayout

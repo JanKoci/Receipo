@@ -7,6 +7,7 @@ import android.animation.ObjectAnimator
 import android.graphics.Point
 import android.graphics.Rect
 import android.graphics.RectF
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MotionEvent
@@ -29,6 +30,9 @@ import kotlin.coroutines.CoroutineContext
 import kotlin.math.max
 import kotlin.math.min
 import android.util.Log
+import android.widget.ImageButton
+import com.example.receipo.db.ReceiptDatabase
+import com.example.receipo.db.ReceiptDatabase.Companion.DEFAULT_CATEGORY_ICON
 
 
 class DetailActivity : AppCompatActivity() {
@@ -81,6 +85,7 @@ class DetailActivity : AppCompatActivity() {
         var receipt: Receipt? = null
         var shopName: String = String()
         var price: Double = 0.0
+        var categoryIcon: Int = DEFAULT_CATEGORY_ICON
 
         Log.d("DetailAct", receiptId.toString())
         runBlocking {
@@ -88,11 +93,14 @@ class DetailActivity : AppCompatActivity() {
                 receipt = receiptsViewModel.getReceiptById(receiptId)
                 shopName = receiptsViewModel.getStoreName(receipt!!.receiptStoreId)
                 price = receiptsViewModel.getReceiptPrice(receiptId)
+                categoryIcon = receiptsViewModel.getCategory(receipt!!.categoryId).iconId
             }
         }
 
         Log.d("DetailAct", receipt.toString())
         // set given values
+        findViewById<ImageView>(R.id.category_image_view).setImageResource(categoryIcon)
+
         findViewById<TextView>(R.id.store_name_text_view).apply {
             text = shopName
         }
@@ -126,7 +134,11 @@ class DetailActivity : AppCompatActivity() {
         }
 
         // Hook up clicks on the thumbnail views.
-        val thumbnailView: View = findViewById(R.id.detail_receipt_scan_thumbnail)
+        val thumbnailView: ImageButton = findViewById(R.id.detail_receipt_scan_thumbnail)
+        if (receipt?.scanImagePath != null) {
+            thumbnailView.setImageURI(Uri.parse(receipt?.scanImagePath))
+        }
+
         thumbnailView.setOnClickListener {
             zoomImageFromThumb(thumbnailView, R.drawable.receipt_example)
         }

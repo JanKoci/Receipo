@@ -2,6 +2,7 @@ package com.example.receipo.db
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import com.example.receipo.R
 import com.example.receipo.db.ReceiptDatabase.Companion.DEFAULT_CATEGORY_ID
 import com.example.receipo.db.ReceiptDatabase.Companion.DEFAULT_CATEGORY_NAME
 import com.example.receipo.db.dao.CategoryDao
@@ -33,11 +34,14 @@ suspend fun rePopulateDb(database: ReceiptDatabase?) {
             // create default categories
 
             val categoryIds = categoryDao.insert(
-                         Category(categoryId = DEFAULT_CATEGORY_ID, name = DEFAULT_CATEGORY_NAME),
-                         Category(name = "Sport"),
-                         Category(name = "Clothing"),
-                         Category(name = "Electronics"),
-                         Category(name = "Furniture"))
+                         Category(categoryId = DEFAULT_CATEGORY_ID, name = DEFAULT_CATEGORY_NAME,
+                                  iconId = R.mipmap.ic_other),
+                         Category(name = "Sport", iconId = R.mipmap.ic_sport),
+                         Category(name = "Clothing", iconId = R.mipmap.ic_clothes),
+                         Category(name = "Electronics", iconId = R.mipmap.ic_electro),
+                         Category(name = "Furniture", iconId = R.mipmap.ic_furniture),
+                         Category(name = "Jewellery", iconId = R.mipmap.ic_jewellery),
+                         Category(name = "Toys", iconId = R.mipmap.ic_toys))
 
 
             // create dumb test data
@@ -51,25 +55,25 @@ suspend fun rePopulateDb(database: ReceiptDatabase?) {
                             Receipt(creationDate = dateNow,
                                     expirationDate = dateNow,
                                     receiptStoreId = storeIds[0],
-                                    categoryId = categoryIds[0],
-                                    scanImagePath = "/path/to/scan"),
-
-                            Receipt(creationDate = dateNow,
-                                    expirationDate = dateNow,
-                                    receiptStoreId = storeIds[1],
                                     categoryId = categoryIds[1],
                                     scanImagePath = "/path/to/scan"),
 
                             Receipt(creationDate = dateNow,
                                     expirationDate = dateNow,
-                                    receiptStoreId = storeIds[2],
+                                    receiptStoreId = storeIds[1],
                                     categoryId = categoryIds[2],
                                     scanImagePath = "/path/to/scan"),
 
                             Receipt(creationDate = dateNow,
                                     expirationDate = dateNow,
-                                    receiptStoreId = storeIds[3],
+                                    receiptStoreId = storeIds[2],
                                     categoryId = categoryIds[3],
+                                    scanImagePath = "/path/to/scan"),
+
+                            Receipt(creationDate = dateNow,
+                                    expirationDate = dateNow,
+                                    receiptStoreId = storeIds[3],
+                                    categoryId = categoryIds[4],
                                     scanImagePath = "/path/to/scan"))
 
             itemDao.insert(

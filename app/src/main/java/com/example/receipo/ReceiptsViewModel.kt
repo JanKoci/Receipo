@@ -8,6 +8,7 @@ import com.example.receipo.db.dao.CategoryDao
 import com.example.receipo.db.dao.ItemDao
 import com.example.receipo.db.dao.ReceiptDao
 import com.example.receipo.db.dao.StoreDao
+import com.example.receipo.db.entity.Category
 import com.example.receipo.db.entity.Item
 import com.example.receipo.db.entity.Receipt
 
@@ -49,8 +50,8 @@ class ReceiptsViewModel(application: Application) : AndroidViewModel(application
         return storeDao.getById(storeId).name
     }
 
-    suspend fun getCategoryName(categoryId: Long): String {
-        return categoryDao.getById(categoryId).name
+    suspend fun getCategory(categoryId: Long): Category {
+        return categoryDao.getById(categoryId)
     }
 
     suspend fun getItemsByReceipt(receiptId: Long): List<Item> {
@@ -58,7 +59,8 @@ class ReceiptsViewModel(application: Application) : AndroidViewModel(application
     }
 
     suspend fun getReceiptPrice(receiptId: Long): Double {
-        return receiptDao.getPrice(receiptId)
+        val items = receiptDao.getItems(receiptId)
+        return if (items.isEmpty()) 0.0 else receiptDao.getPrice(receiptId)
     }
 
 

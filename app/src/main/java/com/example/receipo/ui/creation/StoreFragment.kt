@@ -128,6 +128,7 @@ class StoreFragment : Fragment() {
         if (result == null) {
             Toast.makeText(requireContext(), "Cannot delete store that is used in a receipt",
                 Toast.LENGTH_LONG).show()
+            viewAdapter.notifyDataSetChanged()
         }
     }
 

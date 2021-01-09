@@ -10,7 +10,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="90" >
+        android:layout_weight="0.9">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/items_recycle_view"
@@ -33,6 +33,7 @@
         android:backgroundTint="@color/colorPrimary"
         android:src="@drawable/ic_baseline_add_24" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 
     <RelativeLayout
         android:layout_width="wrap_content"

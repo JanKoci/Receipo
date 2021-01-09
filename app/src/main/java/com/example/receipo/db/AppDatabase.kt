@@ -6,6 +6,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.example.receipo.R
 import com.example.receipo.db.dao.*
 import com.example.receipo.db.entity.Category
 import com.example.receipo.db.entity.Item
@@ -32,6 +33,7 @@ abstract class ReceiptDatabase : RoomDatabase() {
         private var INSTANCE: ReceiptDatabase? = null
         const val DEFAULT_CATEGORY_ID: Long = 0
         const val DEFAULT_CATEGORY_NAME = "Other"
+        const val DEFAULT_CATEGORY_ICON = R.mipmap.ic_other
         private const val DB_NAME = "receipo_db"
 
         fun getDatabase(context: Context): ReceiptDatabase {
