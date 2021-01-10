@@ -7,12 +7,16 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
     <string name="action_next">Next</string>
+    <string name="action_delete">Delete</string>
     <string name="date_query">Pick date of purchase:</string>
     <string name="new_store_query">Store Name:</string>
 
     <string name="menu_home">Home</string>
     <string name="menu_expired">Expired</string>
     <string name="menu_stats">Statistics</string>
+
+    <string name="ITEM_CAMERA_TAG">camera</string>
+    <string name="ITEM_IMAGE_TAG">image</string>
 
     <string name="detail_creation_date">Purchase date</string>
     <string name="detail_expiration_date">Expiration date</string>
@@ -28,82 +32,10 @@
     <string name="creation_image">Image</string>
     <string name="creation_overview">OverView</string>
 
-    <string-array name="shops_array">
-        <item>Hilfinger</item>
-        <item>Adidas</item>
-        <item>Alza</item>
-        <item>Sportisimo</item>
-        <item>Sparkys</item>
-        <item>Nike</item>
-        <item>Hilfinger</item>
-        <item>Adidas</item>
-        <item>Alza</item>
-        <item>Sportisimo</item>
-        <item>Sparkys</item>
-        <item>Nike</item>
-    </string-array>
-    <string-array name="dates_array">
-        <item>12. 10. 2020</item>
-        <item>7. 10. 2020</item>
-        <item>21. 9. 2020</item>
-        <item>15. 9. 2020</item>
-        <item>14. 8. 2020</item>
-        <item>2. 8. 2020</item>
-    </string-array>
-    <string-array name="items_array">
-        <item>Tshirt, Jeans</item>
-        <item>Shoes</item>
-        <item>Headphones</item>
-        <item>Football, water bottle</item>
-        <item>Teddy bear</item>
-        <item>Shorts</item>
-    </string-array>
-    <string-array name="price_array">
-        <item>1.750 KČ</item>
-        <item>1.200 KČ</item>
-        <item>2.499 KČ</item>
-        <item>600 KČ</item>
-        <item>299 KČ</item>
-        <item>499 KČ</item>
-    </string-array>
-
-    <string-array name="creation_dates_array">
-        <item>10. 11. 2020</item>
-        <item>10. 12. 2020</item>
-        <item>10. 10. 2020</item>
-
-    </string-array>
-    <string-array name="expiration_dates_array">
-        <item>10. 11. 2022</item>
-        <item>10. 12. 2022</item>
-        <item>10. 10. 2022</item>
-
-    </string-array>
-    <string-array name="detail_items_array">
-        <item>T-Shirt</item>
-        <item>Jeans</item>
-        <item>Shoes</item>
-    </string-array>
-    <string-array name="detail_prices_array">
-        <item>699 Kč</item>
-        <item>1699 Kč</item>
-        <item>2699 Kč</item>
-    </string-array>
-
-    <string-array name="categories_array">
-        <item>Clothes</item>
-        <item>Electronics</item>
-        <item>Sport</item>
-        <item>Other</item>
-        <item>Clothes</item>
-        <item>Electronics</item>
-        <item>Sport</item>
-        <item>Other</item>
-    </string-array>
-
     <string name="title_activity_creation">CreationActivity</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_item_image">ItemImageActivity</string>
 </resources>

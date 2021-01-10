@@ -15,7 +15,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.receipo.R
-import com.example.receipo.db.ReceiptDatabase
 import com.example.receipo.db.ReceiptDatabase.Companion.DEFAULT_CATEGORY_ID
 import com.example.receipo.db.entity.Item
 import com.example.receipo.db.entity.Receipt
@@ -123,7 +122,6 @@ class CreationActivity : AppCompatActivity() {
         if (categoryId == null) {
             categoryId = DEFAULT_CATEGORY_ID
         }
-        // TODO: 09/01/2021 Store Name CANNOT BE NULL !!! (Edit StoreFragment to not allow it)
 
         runBlocking {
             withContext(Dispatchers.IO) {
@@ -137,7 +135,7 @@ class CreationActivity : AppCompatActivity() {
                 val items: List<Item> = items.map { item -> Item(description = item.description,
                                                                 price = item.price,
                                                                 parentReceiptId = receiptId,
-                                                                scanPath = item.getImageUri())}
+                                                                scanPath = item.getImageUriString())}
                 viewModel.insertItems(*items.toTypedArray())
             }
         }
