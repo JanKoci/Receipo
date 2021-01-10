@@ -134,13 +134,16 @@ class DetailActivity : AppCompatActivity() {
         }
 
         // Hook up clicks on the thumbnail views.
+        var imageUri: Uri? = null
+
         val thumbnailView: ImageButton = findViewById(R.id.detail_receipt_scan_thumbnail)
         if (receipt?.scanImagePath != null) {
-            thumbnailView.setImageURI(Uri.parse(receipt?.scanImagePath))
+            imageUri = Uri.parse(receipt?.scanImagePath)
+            thumbnailView.setImageURI(imageUri)
         }
 
         thumbnailView.setOnClickListener {
-            zoomImageFromThumb(thumbnailView, R.drawable.receipt_example)
+            zoomImageFromThumb(thumbnailView, imageUri)
         }
 
 
@@ -181,14 +184,16 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun zoomImageFromThumb(thumbView: View, imageResId: Int) {
+    private fun zoomImageFromThumb(thumbView: View, imageUri: Uri?) {
         // If there's an animation in progress, cancel it
         // immediately and proceed with this one.
         currentAnimator?.cancel()
-        println("ahojahojahoj")
         // Load the high-resolution "zoomed-in" image.
         val expandedImageView: ImageView = findViewById(R.id.detail_receipt_scan_enlarged)
-        expandedImageView.setImageResource(imageResId)
+
+        if (imageUri != null) {
+            expandedImageView.setImageURI(imageUri)
+        }
 
         val contentLayout: LinearLayout = findViewById(R.id.detail_content_layout)
         val appBarLayout: AppBarLayout = findViewById(R.id.detail_appbar)
