@@ -123,7 +123,6 @@ class CreationActivity : AppCompatActivity() {
         if (categoryId == null) {
             categoryId = DEFAULT_CATEGORY_ID
         }
-        // TODO: 09/01/2021 Store Name CANNOT BE NULL !!! (Edit StoreFragment to not allow it)
 
         runBlocking {
             withContext(Dispatchers.IO) {

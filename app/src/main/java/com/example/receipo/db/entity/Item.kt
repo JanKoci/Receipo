@@ -8,7 +8,6 @@ import androidx.room.PrimaryKey
 class Item(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
-//    val thumbNailPath: String?,
     val scanPath: String?,
     val description: String,
     val price: Double,

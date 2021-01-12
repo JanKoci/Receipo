@@ -13,7 +13,6 @@ data class Receipt(
     var expirationDate: String?,
     var receiptStoreId: Long,
     var categoryId: Long,
-//    var thumbNailPath: String?,
     var scanImagePath: String?
 )
 
